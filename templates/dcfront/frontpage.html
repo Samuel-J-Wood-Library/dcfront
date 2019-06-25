@@ -17,16 +17,20 @@
 
 {% if user.is_authenticated %}
 <h4>Actions available for {{ request.user.first_name }} {{ request.user.last_name }} ({{ request.user.username }}):</h4>
-    <a type="button" class="btn btn-warning" href="/logout/">Log out</a>
-    <a href="{% url 'datacatalog:index' %}" type="button" class="btn btn-success">
+    <a type="button" class="btn btn-warning btn-block" 
+       href="/logout/">Log out</a>
+    <a type="button" class="btn btn-danger btn-block" 
+       href="{% url 'datacatalog:index' %}">
             Go to Data Catalog</a>
 {% else %}
-    <a type="button" class="btn btn-warning" href="/accounts/login/">Log in</a>
+    <a type="button" class="btn btn-warning btn-block" 
+       href="/accounts/login/">Log in</a>
 {% endif %}
 
 
 {% if request.user|has_group:"dcore_viewer"  or request.user|has_group:"dcore_editor" %}
-    <a href="{% url 'dc_management:index' %}" type="button" class="btn btn-success">
+    <a type="button" class="btn btn-danger btn-block"
+       href="{% url 'dc_management:index' %}" >
        Go to Data Core Management</a>
 {% endif %}
 
