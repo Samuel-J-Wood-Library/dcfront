@@ -1,0 +1,104 @@
+
+{% extends "base.html" %}
+{% load project_tags %}
+
+{% load bootstrap4 %}
+
+{% load static %}
+
+
+
+
+{% block navblock %}
+
+<style>
+
+.navbar-custom {
+    background-color: #CF4520;
+}
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: #CF4520;
+}
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+    color: #CF4520;
+}
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #B31B1B;
+}
+
+</style>
+
+        <div class="navbar navbar-custom navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a style="color:white;" class="navbar-brand" 
+                       href="/">{{ APPTITLE }}</a>
+                    <button class="navbar-toggle" data-target="#navbar-main" data-toggle="collapse" type="button">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="navbar-main" class="navbar-collapse collapse">
+                    
+                    <ul class="nav navbar-nav">
+                        <li>
+                          <img 
+                          height="50"
+                          src="{% static "dcfront/WCM_MB_LOGO_HZSS1L_WHT_RGB.png" %}" 
+                          alt="My image">
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav col-sm-3 col-md-3 pull-right">
+                        <li>
+                          <a style="color:white;"
+                             href="https://weill.cornell.edu">WCM</a>
+                        </li>
+                    </ul>
+                    
+                    
+                    <ul class="nav navbar-nav navbar-left">
+                        <li>{% block pagetitle %}{% endblock %}</li>
+                    </ul>
+                    
+                                       
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                            <li class="dropdown">
+                              <a class="dropdown-toggle" 
+                                id="dropblast" 
+                                data-toggle="dropdown"
+                                href="#"
+                                style="color:white;">
+                                {{ user.get_username }} <b class="caret"></b>
+                              </a>
+                              <ul class="dropdown-menu" 
+                                    role="menu" 
+                                    aria-labelledby="dropblast">
+                                    <li><a href="{% url 'admin:index' %}" 
+                                           target="_blank"
+                                           style="color:white;">Admin</a>
+                                    </li>
+                                    <li><a href="/logout/"
+                                           style="color:white;">Logout </a></li>
+                                    
+                              </ul>
+                              
+                            </li>
+                            
+                       
+                        {% else %}
+                            <li><a style="color:white;" href="/login/">Login</a></li>
+                            
+                        {% endif %}
+                    </ul> 
+                </div>
+            </div>
+        </div>
+{% endblock %}
