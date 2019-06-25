@@ -1,1 +1,38 @@
-<a href="{% url 'dc_management:index' %}">Data Core Management </a>
+
+{% extends "base.html" %}
+
+{% load bootstrap4 %}
+
+{% load crispy_forms_tags %}
+{% load project_tags %}
+
+{% block content %}
+<h1>Welcome to the Data Core homepage</h1>
+<p>For any questions about access to content on this site, or to report any issues, please email dcore-ticket@med.cornell.edu</p>
+</br>
+</br>
+
+
+{% if user.is_authenticated %}
+<h4>Actions for {{ request.user.first_name }} {{ request.user.last_name }} ({{ request.user.username }}):</h4>
+    <a type="button" class="btn btn-warning" href="/logout/">Log out</a>
+    <a href="{% url 'datacatalog:index' %}" type="button" class="btn btn-success">
+            Go to Data Catalog</a>
+{% else %}
+    <a type="button" class="btn btn-warning" href="/accounts/login/">Log in</a>
+{% endif %}
+
+
+{% if request.user|has_group:"dcore_viewer"  or request.user|has_group:"dcore_editor" %}
+    <a href="{% url 'dc_management:index' %}" type="button" class="btn btn-success">
+       Go to Data Core Management</a>
+{% endif %}
+
+</br>
+</br>
+
+
+
+
+{% endblock %}
+
