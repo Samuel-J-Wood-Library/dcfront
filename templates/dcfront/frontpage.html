@@ -14,7 +14,7 @@
 
 
 {% if user.is_authenticated %}
-<h4>Actions for {{ request.user.first_name }} {{ request.user.last_name }} ({{ request.user.username }}):</h4>
+<h4>Actions available for {{ request.user.first_name }} {{ request.user.last_name }} ({{ request.user.username }}):</h4>
     <a type="button" class="btn btn-warning" href="/logout/">Log out</a>
     <a href="{% url 'datacatalog:index' %}" type="button" class="btn btn-success">
             Go to Data Catalog</a>
