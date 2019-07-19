@@ -27,6 +27,11 @@
        href="/accounts/login/">Log in</a>
 {% endif %}
 
+{% if request.user|has_group:"datacatalog_editor" %}
+    <a type="button" class="btn btn-danger btn-block"
+       href="{% url 'persons:index' %}" >
+       Go to Person, Org, Dept Management</a>
+{% endif %}
 
 {% if request.user|has_group:"dcore_viewer"  or request.user|has_group:"dcore_editor" %}
     <a type="button" class="btn btn-danger btn-block"
