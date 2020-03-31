@@ -21,72 +21,61 @@
     color: #777;
     background-color: #E87722;
 }
+
+body { padding-top: 55px; }
 </style>
 
-        <div class="navbar navbar-custom navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <a style="color:white;" class="navbar-brand" 
-                       href="/">{{ APPTITLE }}</a>
-                    <button class="navbar-toggle" 
-                            data-target="#navbar-main" 
-                            data-toggle="collapse" 
-                            type="button">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div id="navbar-main" class="navbar-collapse collapse">
-                    
-                    <ul class="nav navbar-nav navbar-custom">
-                        <li>
-                          <img 
-                          height="50"
-                          src="{% static "dcfront/WCM_MB_LOGO_HZSS1L_WHT_RGB.png" %}" 
-                          href="https://weill.cornell.edu"
-                          alt="Return to Weill Cornell home page">
-                        </li>
-                    </ul>
-                    
-                    
-                    
-                    <ul class="nav navbar-nav navbar-left navbar-custom">
-                        <li>{% block pagetitle %}{% endblock %}</li>
-                    </ul>
-                    
-                                       
-                    
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if user.is_authenticated %}
-                            <li class="dropdown navbar-custom">
-                              <a class="dropdown-toggle navbar-custom" 
-                                id="dropblast" 
-                                data-toggle="dropdown"
-                                href="#"
-                                style="color:white;">
-                                {{ user.get_username }} <b class="caret"></b>
-                              </a>
-                              <ul class="dropdown-menu" 
-                                    role="menu" 
-                                    aria-labelledby="dropblast">
-                                    <li><a href="{% url 'admin:index' %}" 
-                                           target="_blank">Admin</a>
-                                    </li>
-                                    <li><a href="/logout/">Logout </a></li>
-                                    
-                              </ul>
-                              
-                            </li>
-                            
-                       
-                        {% else %}
-                            <li><a style="color:white;" 
-                                   href="/accounts/login/">Login</a></li>
-                            
-                        {% endif %}
-                    </ul> 
-                </div>
-            </div>
-        </div>
+<nav class="navbar navbar-expand-md navbar-custom fixed-top">
+    <a class="navbar-brand" href="/">{{ APPTITLE }}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" 
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            {# ## ### WCM ICON ### ## #}
+            <li>
+              <img 
+              height="50"
+              src="{% static "dcfront/WCM_MB_LOGO_HZSS1L_WHT_RGB.png" %}" 
+              href="https://weill.cornell.edu"
+              alt="Return to Weill Cornell home page">
+            </li>
+            
+            {# ## ### PAGE TITLE ### ## #}
+            <li>{% block pagetitle %}{% endblock %}</li>
+        </ul>    
+        
+        <ul class="navbar-nav ml-auto">    
+            {% if user.is_authenticated %}
+            {# ## ### USER ADMIN OPTIONS ### ## #}
+            <li class="nav-item dropdown ml-auto">
+                <a  class="nav-link dropdown-toggle btn-outline-light" 
+                    href="#" id="AdminDropdown" 
+                    role="button" data-toggle="dropdown" 
+                    aria-haspopup="true" aria-expanded="false">
+                    {{ user.get_username }} <b class="caret"></b>
+                </a>
+            <div class="dropdown-menu" aria-labelledby="AdminDropdown">
+              <a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank">
+                Admin</a>
+              <a class="dropdown-item" href="{% url 'frontpage' %}">
+                Data Core Frontpage</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/logout/">Logout </a>
+            </div>        
+            </li>
+            
+            {% else %}
+            <li><a style="color:white;" 
+                   href="/accounts/login/">Login</a></li>
+            {% endif %}         
+            
+        </ul> 
+    </div>
+</nav>
+
+
 {% endblock %}
