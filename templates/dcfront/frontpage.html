@@ -19,51 +19,69 @@
 <p>For any questions about access to content on this site, or to report any issues, please email dcore-ticket@med.cornell.edu</p>
 
 
+
 <div class="row">
+
+  {# SERVICE CATALOG CARD #}
   <div class="col-sm-3">
-    <div class="card">
+    <div class="card h-100 shadow">
       <div class="card-body">
         <h5 class="card-title">Data Core Service Catalog</h5>
-        <p class="card-text">This will take you to our service catalog, where you can view prices for various configurations of a Data Core project.</p>
+        <p class="card-text">View our service catalog, where you can see prices for various configurations of a Data Core project.</p>
+      </div>
+      <div class="card-footer">  
         <a type="button" class="btn btn-success w-100"
            href="https://its.weill.cornell.edu/services/research-informatics/wcm-data-core" >
            SERVICE CATALOG</a>
       </div>
     </div>
   </div>
+  
+  {# ONBOARDING CARD #}
   <div class="col-sm-3">
-    <div class="card">
+    <div class="card h-100 shadow">
       <div class="card-body">
         <h5 class="card-title">Request a new Data Core project</h5>
         <p class="card-text">This will take you to our form to request a new project.</p>
+      </div>
+      <div class="card-footer">  
         <a type="button" class="btn btn-success"
-           href="https://weillcornell.az1.qualtrics.com/jfe/form/SV_em2VdgY94nzYY2F" >
+           href="https://wcmcprd.service-now.com/myhelpdesk?id=sc_cat_item&sys_id=853a669c13c4f34037507b104244b09d" >
            REQUEST NEW PROJECT</a>
       </div>
     </div>
   </div>
+  
+  {# INCIDENT CARD #}
   <div class="col-sm-3">
-    <div class="card">
+    <div class="card h-100 shadow">
       <div class="card-body">
         <h5 class="card-title">Report an incident with Data Core</h5>
         <p class="card-text">If you cannot log in, you have inadvertently deleted a file, or your Data Core project is not behaving as expected.</p>
+      </div>
+      <div class="card-footer">  
         <a type="button" class="btn btn-danger w-100"
            href="https://wcmcprd.service-now.com/myhelpdesk?id=sc_cat_item&sys_id=3f1dd0320a0a0b99000a53f7604a2ef9&sysparm_category=009b496f0f85af00911291dbe1050e56" >
            REPORT INCIDENT</a>
       </div>
     </div>
   </div>
+  
+  {# REQUEST CARD #}
   <div class="col-sm-3">
-    <div class="card">
+    <div class="card h-100 shadow">
       <div class="card-body">
         <h5 class="card-title">Request a change to your Data Core project</h5>
-        <p class="card-text">Add users to project, request data import/export, install new software</p>
+        <p class="card-text">Add users to project, request data import/export, or install new software.</p>
+      </div>
+      <div class="card-footer">  
         <a type="button" class="btn btn-warning w-100"
            href="https://wcmcprd.service-now.com/myhelpdesk?id=sc_cat_item&sys_id=7c81b0b41302f70037507b104244b047&sysparm_category=009b496f0f85af00911291dbe1050e56" >
            REQUEST CHANGE</a>
       </div>
     </div>
   </div>
+  
 </div>
 
 </br>
@@ -92,6 +110,12 @@
        Go to Data Core Management</a>
 {% endif %}
 
+{% if request.user|has_group:"record_viewing_privileges"  %}
+    <a type="button" class="btn btn-danger btn-block" 
+       href="{% url 'covidskills:index' %}">
+            Go to ITS COVID Skills Inventory</a>
+{% endif %}
+
 </br>
 </br>
 {% comment %}
@@ -99,6 +123,19 @@
      src="{% static 'dcfront/WCM_MB_LOGO_HZSS2L_CLR_RGB.png' %}" alt="WCM">
 {% endcomment %}
 
+{% comment %}
+{% if user.is_authenticated %}
+<div class="card px-4 py-4 mx-5 my-5 bg-warning">
+
+    <a type="button" class="btn btn-danger btn-block" 
+       href="{% url 'covidskills:index' %}">
+            CLICK HERE TO CONNECT TO THE ITS COVID SKILLS INVENTORY</a>
+</div>
+{% else %}
+    <a type="button" class="btn btn-warning btn-block" 
+       href="/accounts/login/">Log in to gain access to the skills inventory</a>
+{% endif %}
+{% endcomment %}
 
 
 {% endblock %}
