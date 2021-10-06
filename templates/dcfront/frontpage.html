@@ -89,13 +89,13 @@
 {% if user.is_authenticated %}
 <h4>Actions available for {{ request.user.first_name }} {{ request.user.last_name }} ({{ request.user.username }}):</h4>
     <a type="button" class="btn btn-warning btn-block" 
-       href="/logout/">Log out</a>
+       href="/logout">Log out</a>
     <a type="button" class="btn btn-danger btn-block" 
        href="{% url 'datacatalog:index' %}">
             Go to Data Catalog</a>
 {% else %}
     <a type="button" class="btn btn-warning btn-block" 
-       href="/accounts/login/">Log in</a>
+       href="/accounts/login">Log in</a>
 {% endif %}
 
 {% if request.user|has_group:"datacatalog_editor" or request.user|has_group:"dcore_editor" %}
@@ -133,7 +133,7 @@
 </div>
 {% else %}
     <a type="button" class="btn btn-warning btn-block" 
-       href="/accounts/login/">Log in to gain access to the skills inventory</a>
+       href="/accounts/login">Log in to gain access to the skills inventory</a>
 {% endif %}
 {% endcomment %}
 
