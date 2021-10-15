@@ -110,12 +110,6 @@
        Go to Data Core Management</a>
 {% endif %}
 
-{% if request.user|has_group:"record_viewing_privileges"  %}
-    <a type="button" class="btn btn-danger btn-block" 
-       href="{% url 'covidskills:index' %}">
-            Go to ITS COVID Skills Inventory</a>
-{% endif %}
-
 </br>
 </br>
 {% comment %}
