@@ -30,7 +30,7 @@
         <p class="card-text">View our service catalog, where you can see prices for various configurations of a Data Core project.</p>
       </div>
       <div class="card-footer">  
-        <a type="button" class="btn btn-success w-100"
+        <a  class="btn btn-success w-100"
            href="https://its.weill.cornell.edu/services/research-informatics/wcm-data-core" >
            SERVICE CATALOG</a>
       </div>
@@ -45,7 +45,7 @@
         <p class="card-text">This will take you to our form to request a new project.</p>
       </div>
       <div class="card-footer">  
-        <a type="button" class="btn btn-success"
+        <a  class="btn btn-success"
            href="https://wcmcprd.service-now.com/myhelpdesk?id=sc_cat_item&sys_id=853a669c13c4f34037507b104244b09d" >
            REQUEST NEW PROJECT</a>
       </div>
@@ -60,7 +60,7 @@
         <p class="card-text">If you cannot log in, you have inadvertently deleted a file, or your Data Core project is not behaving as expected.</p>
       </div>
       <div class="card-footer">  
-        <a type="button" class="btn btn-danger w-100"
+        <a  class="btn btn-danger w-100"
            href="https://wcmcprd.service-now.com/myhelpdesk?id=sc_cat_item&sys_id=3f1dd0320a0a0b99000a53f7604a2ef9&sysparm_category=009b496f0f85af00911291dbe1050e56" >
            REPORT INCIDENT</a>
       </div>
@@ -75,7 +75,7 @@
         <p class="card-text">Add users to project, request data import/export, or install new software.</p>
       </div>
       <div class="card-footer">  
-        <a type="button" class="btn btn-warning w-100"
+        <a  class="btn btn-warning w-100"
            href="https://wcmcprd.service-now.com/myhelpdesk?id=sc_cat_item&sys_id=2a73bbaadbc42c146f4e105f689619f9&sysparm_category=4b63ad5f137c3f8037507b104244b032" >
            REQUEST CHANGE</a>
       </div>
@@ -88,48 +88,30 @@
 
 {% if user.is_authenticated %}
 <h4>Actions available for {{ request.user.first_name }} {{ request.user.last_name }} ({{ request.user.username }}):</h4>
-    <a type="button" class="btn btn-warning btn-block" 
+    <a  class="btn btn-warning btn-block" 
        href="/logout">Log out</a>
-    <a type="button" class="btn btn-danger btn-block" 
+    <a  class="btn btn-danger btn-block" 
        href="{% url 'datacatalog:index' %}">
             Go to Data Catalog</a>
 {% else %}
-    <a type="button" class="btn btn-warning btn-block" 
+    <a  class="btn btn-warning btn-block" 
        href="/accounts/login">Log in</a>
 {% endif %}
 
 {% if request.user|has_group:"datacatalog_editor" or request.user|has_group:"dcore_editor" %}
-    <a type="button" class="btn btn-danger btn-block"
+    <a  class="btn btn-danger btn-block"
        href="{% url 'persons:index' %}" >
        Go to Person, Org, Dept Management</a>
 {% endif %}
 
 {% if request.user|has_group:"dcore_viewer"  or request.user|has_group:"dcore_editor" %}
-    <a type="button" class="btn btn-danger btn-block"
+    <a  class="btn btn-danger btn-block"
        href="{% url 'dc_management:index' %}" >
        Go to Data Core Management</a>
 {% endif %}
 
 </br>
 </br>
-{% comment %}
-<img height="150"
-     src="{% static 'dcfront/WCM_MB_LOGO_HZSS2L_CLR_RGB.png' %}" alt="WCM">
-{% endcomment %}
-
-{% comment %}
-{% if user.is_authenticated %}
-<div class="card px-4 py-4 mx-5 my-5 bg-warning">
-
-    <a type="button" class="btn btn-danger btn-block" 
-       href="{% url 'covidskills:index' %}">
-            CLICK HERE TO CONNECT TO THE ITS COVID SKILLS INVENTORY</a>
-</div>
-{% else %}
-    <a type="button" class="btn btn-warning btn-block" 
-       href="/accounts/login">Log in to gain access to the skills inventory</a>
-{% endif %}
-{% endcomment %}
 
 
 {% endblock %}
