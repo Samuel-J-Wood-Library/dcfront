@@ -18,13 +18,103 @@
 <h1 style="color:#B31B1B;">Welcome to the Data Core homepage</h1>
 <p>For any questions about access to content on this site, or to report any issues, please email dcore-ticket@med.cornell.edu</p>
 
+{# LOGIN OPTIONS #}
+{% if user.is_authenticated %}
+    <a class="btn btn-warning btn-block"
+       href="/logout">Log out {{ request.user.first_name }}
+                              {{ request.user.last_name }}
+                              ({{ request.user.username }})</a>
+{% else %}
+    <a class="btn btn-warning btn-block"
+       href="/accounts/login">Log in</a>
+{% endif %}
 
+</br>
 
-<div class="row">
+{# CARD DECKS #}
+<div class="card-deck">
+    {% if user.is_authenticated %}
+         {# DATA RETENTION PROJECT VIEW #}
+        <div class="card shadow">
+          <div class="card-body">
+            <h5 class="card-title">Data Retention Dashboard</h5>
+            <p class="card-text">View and update your projects and datasets.</p>
+          </div>
+          <div class="card-footer">
+            <a  class="btn btn-success w-100"
+               href="{% url 'datacatalog:projects-byuser' %}" >
+               VIEW MY PROJECTS</a>
+          </div>
+        </div>
+
+         {# NEW DATA RETENTION REQUEST #}
+        <div class="card shadow">
+          <div class="card-body">
+            <h5 class="card-title">Request Data Retention</h5>
+            <p class="card-text">Use our retention request wizard to archive data associated
+                                 with a completed project milestone.</p>
+          </div>
+          <div class="card-footer">
+            <a  class="btn btn-danger w-100"
+               href="{% url 'datacatalog:wizard-project' %}" >
+               NEW RETENTION REQUEST</a>
+          </div>
+        </div>
+
+         {# DATA CATALOG #}
+         <div class="card shadow">
+          <div class="card-body">
+            <h5 class="card-title">Data Catalog</h5>
+            <p class="card-text">View details of datasets available for research at WCM. You can also submit metadata
+                                    of your own datasets for others to discover.</p>
+          </div>
+          <div class="card-footer">
+            <a  class="btn btn-primary w-100"
+               href="{% url 'datacatalog:index' %}" >
+               DATA CATALOG</a>
+          </div>
+        </div>
+    {% endif %}
+
+    {# Person database access #}
+    {% if request.user|has_group:"datacatalog_editor" or request.user|has_group:"dcore_editor" %}
+        <div class="card shadow">
+          <div class="card-body">
+            <h5 class="card-title">Person Database</h5>
+            <p class="card-text">View and update details of people, departments and organizations for use in MIDAS and
+                                  the Data Catalog</p>
+          </div>
+          <div class="card-footer">
+            <a  class="btn btn-warning w-100"
+               href="{% url 'persons:index' %}" >
+               PERSONS DB</a>
+          </div>
+        </div>
+    {% endif %}
+
+    {# MIDAS access #}
+    {% if request.user|has_group:"dcore_viewer"  or request.user|has_group:"dcore_editor" %}
+        <div class="card shadow">
+          <div class="card-body">
+            <h5 class="card-title">MIDAS</h5>
+            <p class="card-text">Manage Data Core project details.</p>
+          </div>
+          <div class="card-footer">
+            <a  class="btn btn-warning w-100"
+               href="{% url 'dc_management:index' %}" >
+               MIDAS</a>
+          </div>
+        </div>
+    {% endif %}
+</div>
+
+</br>
+
+{# Data Core service cards (always visible) #}
+<div class="card-deck">
 
   {# SERVICE CATALOG CARD #}
-  <div class="col-sm-3">
-    <div class="card h-100 shadow">
+    <div class="card shadow">
       <div class="card-body">
         <h5 class="card-title">Data Core Service Catalog</h5>
         <p class="card-text">View our service catalog, where you can see prices for various configurations of a Data Core project.</p>
@@ -35,11 +125,9 @@
            SERVICE CATALOG</a>
       </div>
     </div>
-  </div>
-  
+
   {# ONBOARDING CARD #}
-  <div class="col-sm-3">
-    <div class="card h-100 shadow">
+    <div class="card shadow">
       <div class="card-body">
         <h5 class="card-title">Request a new Data Core project</h5>
         <p class="card-text">This will take you to our form to request a new project.</p>
@@ -50,11 +138,9 @@
            REQUEST NEW PROJECT</a>
       </div>
     </div>
-  </div>
-  
+
   {# INCIDENT CARD #}
-  <div class="col-sm-3">
-    <div class="card h-100 shadow">
+    <div class="card shadow">
       <div class="card-body">
         <h5 class="card-title">Report an incident with Data Core</h5>
         <p class="card-text">If you cannot log in, you have inadvertently deleted a file, or your Data Core project is not behaving as expected.</p>
@@ -65,11 +151,9 @@
            REPORT INCIDENT</a>
       </div>
     </div>
-  </div>
-  
+
   {# REQUEST CARD #}
-  <div class="col-sm-3">
-    <div class="card h-100 shadow">
+    <div class="card shadow">
       <div class="card-body">
         <h5 class="card-title">Request a change to your Data Core project</h5>
         <p class="card-text">Add users to project, request data import/export, or install new software.</p>
@@ -80,38 +164,8 @@
            REQUEST CHANGE</a>
       </div>
     </div>
-  </div>
-  
+
 </div>
-
-</br>
-
-{% if user.is_authenticated %}
-<h4>Actions available for {{ request.user.first_name }} {{ request.user.last_name }} ({{ request.user.username }}):</h4>
-    <a  class="btn btn-warning btn-block" 
-       href="/logout">Log out</a>
-    <a  class="btn btn-danger btn-block" 
-       href="{% url 'datacatalog:index' %}">
-            Go to Data Catalog</a>
-{% else %}
-    <a  class="btn btn-warning btn-block" 
-       href="/accounts/login">Log in</a>
-{% endif %}
-
-{% if request.user|has_group:"datacatalog_editor" or request.user|has_group:"dcore_editor" %}
-    <a  class="btn btn-danger btn-block"
-       href="{% url 'persons:index' %}" >
-       Go to Person, Org, Dept Management</a>
-{% endif %}
-
-{% if request.user|has_group:"dcore_viewer"  or request.user|has_group:"dcore_editor" %}
-    <a  class="btn btn-danger btn-block"
-       href="{% url 'dc_management:index' %}" >
-       Go to Data Core Management</a>
-{% endif %}
-
-</br>
-</br>
 
 
 {% endblock %}
