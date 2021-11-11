@@ -28,9 +28,11 @@
 
 {# CARD DECKS #}
 
-<div class="alert alert-primary text-uppercase" role="alert">
-    <strong>Data Retention and Data Catalog</strong>
-</div>
+{% if user.is_authenticated %}
+    <div class="alert alert-primary text-uppercase" role="alert">
+        <strong>Data Retention and Data Catalog</strong>
+    </div>
+{% endif %}
 
 <div class="card-deck">
     {% if user.is_authenticated %}
