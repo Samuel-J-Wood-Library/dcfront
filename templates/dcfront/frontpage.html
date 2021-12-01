@@ -100,13 +100,13 @@
     {% if request.user|has_group:"dcore_viewer"  or request.user|has_group:"dcore_editor" %}
         <div class="card shadow border-warning">
           <div class="card-body">
-            <h5 class="card-title">MIDAS</h5>
+            <h5 class="card-title">MARIGOLD</h5>
             <p class="card-text">Admin access to manage Data Core project details.</p>
           </div>
           <div class="card-footer">
             <a  class="btn btn-warning w-100"
                href="{% url 'dc_management:index' %}" >
-               MIDAS</a>
+               MARIGOLD</a>
           </div>
         </div>
     {% endif %}
